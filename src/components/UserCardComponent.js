@@ -11,18 +11,17 @@ const UserCardInfo = ({person, handleClick}) => {
         className="card"
         style={{ height: "100% !important"}}
       >
-      <Typography><b>{person.name.last}</b>&nbsp;{person.name.first}</Typography>
-{/*         <CardMedia
+        <CardMedia
           className="cardMedia"
           image={ person.picture.thumbnail }
-        /> */}
-{/*           <CardContent>
-            <Typography><b>{person.name.last}</b>&nbsp;{person.name.first}</Typography>
-            <Typography>{person.location.city},</Typography>
-            <Typography>{person.location.state},</Typography>
-            <Typography>{person.location.country}</Typography>
-          
-            </CardContent> */}
+        /> 
+        <CardContent>
+          <Typography><b>{person.name.last}</b>&nbsp;{person.name.first}</Typography>
+          <Typography>{person.location.city},</Typography>
+          <Typography>{person.location.state},</Typography>
+          <Typography>{person.location.country}</Typography>
+        
+        </CardContent> 
       { 
         !!handleClick && (     
           <CardActions style={{justifyContent:"center"}}>

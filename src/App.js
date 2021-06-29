@@ -1,18 +1,30 @@
 import './App.css';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
 import HomeView from './views/home/HomeView';
+import DetailView from './views/detail/DetailView';
+import { Provider as UsersProvider } from './context/UserContext';
 
 function App() {
   return (
     <>
       <AppBar position="static"> 
-        <Toolbar />
+        <Toolbar/>
       </AppBar>
-      <div className="App">
-        <Route path="/" render={(props) => <HomeView {...props} />}/>
-      </div>
+        <div className="App">
+          <Switch>
+             <Route path="/person/:id" component={(props) => <DetailView {...props} />}/>
+             <Route path="/" component={(props) => <HomeView {...props} />}/>
+            </Switch>
+        </div>
     </>
   );
 }
-export default App;
+/* <Route path="/user/:id" component= { userDetail } /> */
+export default () => {
+  return (  
+    <UsersProvider>
+      <App />
+    </UsersProvider>
+  );
+}

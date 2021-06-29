@@ -1,41 +1,33 @@
 //import liraries
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext  } from 'react';
 import './HomeView.css';
 import { CircularProgress, Grid } from '@material-ui/core';
-import UserCardInfo from '../../components/UserCardComponent copy';
+import UserCardInfo from '../../components/UserCardComponent';
 import { Typography } from '@material-ui/core';
-
+import { Context as usersContext} from '../../context/UserContext';
+import { useHistory } from 'react-router-dom';
 
 const HomeView = () => {
-  const [users, setUsers] = useState(null);
+  const history = useHistory();
 
-  const fetchUsers = () => {
-    return fetch(`https://randomuser.me/api/?seed=asd&results=50&inc=name,location,id,picture,email`)
-      .then(res => { 
-        if(!!res && res.ok)
-          return res.json();
-        else 
-          return Promise.reject();
-      })
-      .catch((e) => {
-        return Promise.reject();
-      });
-  }
+  const  {state: {users, errorMessage}, getUsers, setUser } = useContext(usersContext);
 
   useEffect(() => {
-    let mounted = true;
-    // pedido a la api
-      fetchUsers().then(res => {
-        if(mounted)
-          setUsers(res.results);
-      }).catch(()=> {
-        setUsers([]);
-      });
-    // cleanup function
-    return () => {
-      mounted = false;
-    };
-  }, [!!users]);
+    getUsers(users);
+  }, []);
+
+  useEffect(() => {
+    setUser(null);
+  }, []);
+
+  const onCLickUser = (e, person) => {
+    e.preventDefault();
+    setUser(person);
+    //redireccionamos
+/*     history.push(`/person/${}/${person.ord}`); */
+    history.push(`/person/${person.login.uuid}`); 
+
+  } 
 
 
   return (
@@ -46,18 +38,21 @@ const HomeView = () => {
         <div className="homeContainer">
           <Grid container spacing={1}>
             {
-              users && users.length >=0 ? (
+              users && users.length >=0 && (
                 users.map(person =>
                 <UserCardInfo 
                   person= {person}
                   key= {person.email}
+                  handleClick={ onCLickUser} 
                 />
-              )
-              ) : (
+              )) 
+            }
+            {
+              errorMessage &&
                 <Typography >
                   Upps.. No hay información para mostrar
                 </Typography>
-              )
+              
             }
           </Grid>
         </div>
