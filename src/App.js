@@ -5,7 +5,7 @@ import HomeView from './views/home/HomeView';
 import DetailView from './views/detail/DetailView';
 import { Provider as UsersProvider } from './context/UserContext';
 
-function App() {
+function AppMain() {
   return (
     <>
       <AppBar position="static"> 
@@ -20,11 +20,11 @@ function App() {
     </>
   );
 }
-/* <Route path="/user/:id" component= { userDetail } /> */
-export default () => {
-  return (  
+
+const App = () => (  
     <UsersProvider>
-      <App />
+      <AppMain />
     </UsersProvider>
   );
-}
+
+export default App;

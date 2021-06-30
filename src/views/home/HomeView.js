@@ -1,12 +1,12 @@
 //import liraries
-import React, { useState, useEffect, useContext  } from 'react';
+import React, { useEffect, useContext  } from 'react';
 import './HomeView.css';
-import { CircularProgress, Grid } from '@material-ui/core';
+import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import UserCardInfo from '../../components/UserCardComponent';
-import { Typography } from '@material-ui/core';
 import { Context as usersContext} from '../../context/UserContext';
 import { useHistory } from 'react-router-dom';
-
+import PresentationUserComponent from '../../components/PresentationUserComponent';
+import Fade from '@material-ui/core/Fade';
 const HomeView = () => {
   const history = useHistory();
 
@@ -14,38 +14,44 @@ const HomeView = () => {
 
   useEffect(() => {
     getUsers(users);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setUser(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
 
   const onCLickUser = (e, person) => {
     e.preventDefault();
     setUser(person);
-    //redireccionamos
-/*     history.push(`/person/${}/${person.ord}`); */
     history.push(`/person/${person.login.uuid}`); 
 
   } 
 
 
   return (
-    !users ? (
-      <CircularProgress />
-    ):(
+  <div className="homeContainer">
+    {
+      !users ? (
+        <CircularProgress />
+      ):(
       <>
-        <div className="homeContainer">
-          <Grid container spacing={1}>
+        <Fade in={users}>
+          <Grid container spacing={3}>
             {
               users && users.length >=0 && (
-                users.map(person =>
-                <UserCardInfo 
-                  person= {person}
-                  key= {person.email}
-                  handleClick={ onCLickUser} 
-                />
-              )) 
+                users.map(person =>(
+                  <Grid item xs={6} sm={3} lg={2} key= {'GridCard ' + person.email}>
+                    <UserCardInfo 
+                      person={person}
+                      handleClick={ onCLickUser } 
+                      detail={ PresentationUserComponent(person) }
+                    />
+                  </Grid>
+              ))) 
+              
             }
             {
               errorMessage &&
@@ -55,8 +61,11 @@ const HomeView = () => {
               
             }
           </Grid>
-        </div>
-      </>)
+          </Fade>
+
+      </>) 
+    }
+  </div>
   );
 };
 

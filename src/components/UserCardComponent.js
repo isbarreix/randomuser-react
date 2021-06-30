@@ -1,40 +1,39 @@
 //import liraries
 import React from 'react';
-import { Card, CardMedia, CardContent, CardActions, Button, Grid, Typography } from '@material-ui/core';
-
+import { Card, CardMedia, CardContent } from '@material-ui/core';
+import './UserCardComponent.css';
 
 // create a component
-const UserCardInfo = ({person, handleClick}) => {
+const UserCardInfo = ({person, handleClick, detail}) => {
+  if(!person) return null;
   return (
-    <Grid item xs={6} sm={3} md={2} lg={1}>
-      <Card
-        className="card"
-        style={{ height: "100% !important"}}
-      >
-        <CardMedia
-          className="cardMedia"
-          image={ person.picture.thumbnail }
-        /> 
-        <CardContent>
-          <Typography><b>{person.name.last}</b>&nbsp;{person.name.first}</Typography>
-          <Typography>{person.location.city},</Typography>
-          <Typography>{person.location.state},</Typography>
-          <Typography>{person.location.country}</Typography>
-        
-        </CardContent> 
-      { 
-        !!handleClick && (     
-          <CardActions style={{justifyContent:"center"}}>
-            <Button 
-              size="small"
-              onClick={e => handleClick(e, person)}   
-            >Learn More
-            </Button>
-          </CardActions>
+    <Card
+      className="card userCard"
+      elevation={3}
+    >
+      {
+        !!handleClick ? (
+          <CardMedia
+            onClick={e => handleClick(e, person)}   
+            className="cardMedia userCardMedia"
+            image={ person.picture.thumbnail }
+          /> 
+        ): (
+          <CardMedia
+            className="cardMedia userCardMediaDetail"
+            image={ person.picture.large }
+          /> 
         )
       }
-      </Card>
-    </Grid>
+
+      {!!detail && (
+          <CardContent className="userCardContent">
+          
+            {detail} 
+            
+          </CardContent> 
+      )}
+    </Card>
   )
   ;
 };
