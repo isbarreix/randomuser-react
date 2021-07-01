@@ -2,11 +2,10 @@
 import React, { useContext } from 'react';
 import './DetailView.css';
 import UserCardInfo from './../../components/UserCardComponent';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Grow } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { Context as usersContext} from '../../context/UserContext';
 import DetailUserComponent from '../../components/DetailUserComponent';
-import Fade from '@material-ui/core/Fade';
 
 const DetailView = () => {
   const history = useHistory();
@@ -22,16 +21,16 @@ const DetailView = () => {
   } 
 
   return (<>
-    <div className="viewContainer">
+    <Grow in={!!user}>
+      <div className="viewContainer">
       { user && (
         <div className="viewCol">
           <Grid item sm={6}>
-            <Fade in={user}>
               <UserCardInfo
                 person={ user }
                 detail={ DetailUserComponent(user) }
               />
-            </Fade>
+           
           </Grid>
         </div>
       )}
@@ -46,8 +45,7 @@ const DetailView = () => {
       </div>
 
     </div>
-
-
+    </Grow>
   </>);
 };
 

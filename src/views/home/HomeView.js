@@ -34,36 +34,34 @@ const HomeView = () => {
   return (
   <div className="homeContainer">
     {
-      !users ? (
-        <CircularProgress />
-      ):(
-      <>
-        <Fade in={users}>
-          <Grid container spacing={3}>
-            {
-              users && users.length >=0 && (
-                users.map(person =>(
-                  <Grid item xs={6} sm={3} lg={2} key= {'GridCard ' + person.email}>
-                    <UserCardInfo 
-                      person={person}
-                      handleClick={ onCLickUser } 
-                      detail={ PresentationUserComponent(person) }
-                    />
-                  </Grid>
-              ))) 
-              
-            }
-            {
-              errorMessage &&
-                <Typography >
-                  Upps.. No hay información para mostrar
-                </Typography>
-              
-            }
-          </Grid>
-          </Fade>
-
-      </>) 
+      !errorMessage ? (
+        !users ? (
+          <CircularProgress />
+        ):(
+          <>
+            <Fade in={!!users}>
+              <Grid container spacing={3}>
+                {
+                  users && users.length >=0 && (
+                    users.map(person =>(
+                      <Grid item xs={6} sm={3} lg={2}key= {!!person.login ? person.login.uuid : 'GridCard' + person.email}>
+                        <UserCardInfo 
+                          person={person}
+                          handleClick={ onCLickUser } 
+                          detail={ PresentationUserComponent(person) }
+                        />
+                      </Grid>
+                  ))) 
+                  
+                }
+              </Grid>
+            </Fade>
+          </>
+        )):(
+          <Typography >
+            Upps.. No hay información para mostrar
+          </Typography>
+        )
     }
   </div>
   );

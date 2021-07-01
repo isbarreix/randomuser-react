@@ -1,11 +1,10 @@
 //import liraries
 import createDataContext from './CreateDataContext';
-import { history } from '../App';
 
 const authReducer = (state, action) => {
     switch (action.type) {
         case 'log_error':
-            return {... state, errorMessage: action.payload };
+            return {...state, errorMessage: action.payload };
         case 'update_users':
                 return {...state, users: action.payload};
         case 'update_user':
@@ -16,7 +15,7 @@ const authReducer = (state, action) => {
 };
 
 const fetchUsers = () => {
-  return fetch(`https://randomuser.me/api/?seed=asd&results=50&inc=name,location,id,picture,email,login`)
+  return fetch(`https://randomuser.me/api/?seed=abc&results=50&inc=name,location,id,picture,email,login,phone`)
     .then(res => { 
       if(!!res && res.ok)
         return res.json();
@@ -41,19 +40,17 @@ const getUsers = dispatch => async (users) => {
 
 const setUser = dispatch => (user) => {
   dispatch({ type: 'update_user', payload: user });
- 
-
 }
 
 
 export const { Context, Provider } = createDataContext(
-    authReducer,
-    { 
-        getUsers, setUser
-    }, 
-    {
-      users: null,
-      user: null,
-      errorMessage: null
-    }
+  authReducer,
+  { 
+      getUsers, setUser
+  }, 
+  {
+    users: null,
+    user: null,
+    errorMessage: null
+  }
 );
