@@ -4,7 +4,7 @@ import { Card, CardMedia, CardContent } from '@material-ui/core';
 import './UserCardComponent.css';
 
 // create a component
-const UserCardInfo = ({person, handleClick, detail}) => {
+const UserCardInfo = ({person, handleClick, image, detail}) => {
   if(!person) return null;
   return (
     <Card
@@ -16,12 +16,12 @@ const UserCardInfo = ({person, handleClick, detail}) => {
           <CardMedia
             onClick={e => handleClick(e, person)}   
             className="cardMedia userCardMedia"
-            image={ person.picture.thumbnail }
+            image={ image }
           /> 
         ): (
           <CardMedia
             className="cardMedia userCardMediaDetail"
-            image={ person.picture.large }
+            image={ image }
           /> 
         )
       }

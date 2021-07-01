@@ -47,6 +47,7 @@ const HomeView = () => {
                       <Grid item xs={6} sm={3} lg={2}key= {!!person.login ? person.login.uuid : 'GridCard' + person.email}>
                         <UserCardInfo 
                           person={person}
+                          image={!!person.picture ? person.picture.thumbnail : ''}
                           handleClick={ onCLickUser } 
                           detail={ PresentationUserComponent(person) }
                         />
@@ -59,7 +60,7 @@ const HomeView = () => {
           </>
         )):(
           <Typography >
-            Upps.. No hay información para mostrar
+            { errorMessage }
           </Typography>
         )
     }

@@ -2,7 +2,7 @@
 import createDataContext from './CreateDataContext';
 import { fetchUsers } from '../services/api';
 /*
- * Que queria realizar. Una aplicacion que cuando se encuentre en el listado de usuarios busque un conjunto de usuarios desde la API, recuperando la pequeña informacion previa que cumple los requisitos (thumbaids, full name, id).
+ * Que queria realizar. Una aplicacion que cuando se encuentre en el listado de usuarios busque un conjunto de usuarios desde la API, recuperando la pequeña informacion previa que cumple los requisitos (thumbnail, full name, id).
   Cuando se interactua con alguna de las miniaturas de los usuarios pasar a una nueva pagina y a partir de tipo de identificador univoco recuperar mayor informacion del usuario desde la API y mostrarla (los anteriores mas telefono,email, username..) 
  * (#) Dado que la api hay casos en el que no se puede recuperar la informacion de un usuario a partir de un set de resultados mas detallado en (##) 
   se tuvo que optar por otra estrategia de recuperacion, la misma es hacer un guardado de estos mismos y de un usuario en particular, este mismo es el se encuentra implicado en la interaccion. 
@@ -34,7 +34,7 @@ const getUsers = dispatch => async (users) => {
     fetchUsers().then(res => {
       dispatch({ type: 'update_users', payload: res.results });
     }).catch(() => {
-      dispatch({ type: 'log_error', payload: 'Upps.. No hay información para mostrar' });
+      dispatch({ type: 'log_error', payload: 'Upps.. Site unavailable take a short break and try again later' });
     });
   
 }

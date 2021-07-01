@@ -28,6 +28,7 @@ const DetailView = () => {
           <Grid item sm={6}>
               <UserCardInfo
                 person={ user }
+                image={!!user.picture ? user.picture.large: ''}
                 detail={ DetailUserComponent(user) }
               />
            
